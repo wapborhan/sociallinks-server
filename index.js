@@ -2,7 +2,7 @@ require("dotenv").config();
 const http = require("http");
 const app = require("./src/app");
 const server = http.createServer(app);
-const port = process.env.PORT || 3300;
+const port = process.env.PORT;
 
 const main = async () => {
   server.listen(port, () => {
