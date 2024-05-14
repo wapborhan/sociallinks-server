@@ -18,7 +18,7 @@ app.use(
 app.use(users);
 
 app.use("/", (req, res) => {
-  res.send("Server Up");
+  res.send("Server Up!");
 });
 
 app.use(notFound);
