@@ -1,7 +1,9 @@
 const asyncWrapper = require("../middlewares/async");
+const AllUser = require("../models/Users");
 
 const getUsers = asyncWrapper(async (req, res) => {
-  res.status(200).json("users");
+  const result = await AllUser.find({});
+  res.send(result);
 });
 
 const createUsers = asyncWrapper(async (req, res) => {
