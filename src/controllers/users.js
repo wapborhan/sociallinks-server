@@ -1,18 +1,29 @@
 const asyncWrapper = require("../middlewares/async");
-const AllUser = require("../models/Users");
+const Users = require("../models/Users");
 
-const getUsers = asyncWrapper(async (req, res) => {
-  const result = await AllUser.find({});
+// Get Request
+const getAllUsers = asyncWrapper(async (req, res) => {
+  const result = await Users.find({});
   res.send(result);
 });
+
+const getSingleUser = asyncWrapper(async (req, res) => {
+  const { username } = req.params;
+  const filter = { username: username };
+  const result = await Users.findOne(filter);
+  res.status(200).json(result);
+});
+
+// Post Request
 
 const createUsers = asyncWrapper(async (req, res) => {
   const data = await req.body;
   console.log(data);
-  res.status(201).json(data);
+  res.status(200).json(data);
 });
 
 module.exports = {
-  getUsers,
+  getAllUsers,
+  getSingleUser,
   createUsers,
 };

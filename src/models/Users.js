@@ -9,6 +9,6 @@ const UserSchema = new Schema({
   bio: { type: String },
   links: { type: Array },
 });
-const AllUser = model("users", UserSchema);
+const Users = model("users", UserSchema);
 
-module.exports = AllUser;
+module.exports = Users;
