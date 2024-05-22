@@ -7,7 +7,7 @@ const UserSchema = new Schema({
   photo: { type: String, required: true },
   location: { type: String },
   bio: { type: String },
-  links: { type: Array },
+  links: { type: Object },
 });
 const Users = model("users", UserSchema);
 
