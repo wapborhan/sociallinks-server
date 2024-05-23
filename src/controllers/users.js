@@ -17,9 +17,28 @@ const getSingleUser = asyncWrapper(async (req, res) => {
 // Post Request
 
 const createUsers = asyncWrapper(async (req, res) => {
-  const data = await req.body;
-  console.log(data);
-  res.status(200).json(data);
+  try {
+    const userData = req.body;
+
+    // Check if the username is provided in the request body
+    if (!userData || !userData.username) {
+      return res.status(400).json({ error: "Username is required" });
+    }
+
+    // Check if the username already exists in the database
+    const existingUser = await Users.findOne({ username: userData.username });
+
+    if (existingUser) {
+      return res.status(409).json({ error: "Username already exists" });
+    }
+
+    // If the username doesn't exist, create a new user
+    const newUser = await Users.create(userData);
+    res.status(201).json(newUser);
+  } catch (error) {
+    console.error("Error creating user:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
 });
 
 module.exports = {
