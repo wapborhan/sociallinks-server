@@ -43,19 +43,21 @@ const createUsers = asyncWrapper(async (req, res) => {
 
 const editSingleUser = asyncWrapper(async (req, res) => {
   const username = req.params.username;
-  const newLinks = req.body;
+  const newLinks = req.body.links;
+  const newBio = req.body.bio;
+  const newAddress = req.body.address;
+
   try {
     // Find the user by username and update their links field
     const updatedUser = await Users.findOneAndUpdate(
       { username: username },
-      { links: newLinks }
+      { links: newLinks, bio: newBio, address: newAddress }
     );
-
     if (!updatedUser) {
       return res.status(404).send({ message: "User not found" });
     }
-
-    res.status(200).send(updatedUser);
+    // res.status(200).send(updatedUser);
+    res.status(200).send({ message: "Profile Updated" });
   } catch (error) {
     res.status(500).send({ message: error.message });
   }
