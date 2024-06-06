@@ -6,6 +6,11 @@ const getAllUsers = asyncWrapper(async (req, res) => {
   const result = await Users.find({});
   res.send(result);
 });
+const getSingleLiked = asyncWrapper(async (req, res) => {
+  const { username } = req.params.username;
+  const result = await Users.findOne(username);
+  res.send(result?.giveLikes);
+});
 
 const getSingleUser = asyncWrapper(async (req, res) => {
   const { username } = req.params;
@@ -68,4 +73,5 @@ module.exports = {
   getSingleUser,
   createUsers,
   editSingleUser,
+  getSingleLiked,
 };
