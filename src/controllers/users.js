@@ -57,8 +57,6 @@ const createProfileView = asyncWrapper(async (req, res) => {
   const { username } = req.params;
   const { viewer } = req.body;
 
-  console.log(`Username`, viewer);
-
   try {
     let user = await Users.findOne({ username });
 
