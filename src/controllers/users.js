@@ -7,6 +7,18 @@ const getAllUsers = asyncWrapper(async (req, res) => {
   res.send(result);
 });
 
+const rankUser = asyncWrapper(async (req, res) => {
+  const users = await Users.find({}).limit(10);
+  const sortedUsers = users.sort((a, b) => {
+    const recvLikesDiff = b.recvLikes.length - a.recvLikes.length;
+    if (recvLikesDiff !== 0) return recvLikesDiff;
+
+    return b.profileViews.length - a.profileViews.length;
+  });
+
+  res.send(sortedUsers);
+});
+
 const getSingleLiked = asyncWrapper(async (req, res) => {
   const { username } = req.params.username;
   const result = await Users.findOne(username);
@@ -109,4 +121,5 @@ module.exports = {
   getSingleLiked,
   getSingleViewed,
   createProfileView,
+  rankUser,
 };
