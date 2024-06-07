@@ -6,10 +6,17 @@ const getAllUsers = asyncWrapper(async (req, res) => {
   const result = await Users.find({});
   res.send(result);
 });
+
 const getSingleLiked = asyncWrapper(async (req, res) => {
   const { username } = req.params.username;
   const result = await Users.findOne(username);
   res.send(result?.giveLikes);
+});
+
+const getSingleViewed = asyncWrapper(async (req, res) => {
+  const { username } = req.params;
+  let result = await Users.findOne({ username });
+  res.send(result);
 });
 
 const getSingleUser = asyncWrapper(async (req, res) => {
@@ -46,6 +53,34 @@ const createUsers = asyncWrapper(async (req, res) => {
   }
 });
 
+const createProfileView = asyncWrapper(async (req, res) => {
+  const { username } = req.params;
+  const { viewer } = req.body;
+
+  console.log(`Username`, viewer);
+
+  try {
+    let user = await Users.findOne({ username });
+
+    if (!user) {
+      return res.status(404).send("User not found");
+    }
+
+    const alreadyExists = user.profileViews.includes(viewer);
+
+    if (alreadyExists) {
+      return res.status(200).send("Profile view from this user already exists");
+    }
+
+    user.profileViews.push(viewer);
+    await user.save();
+
+    res.status(200).send("Profile view added successfully");
+  } catch (err) {
+    res.status(500).send("Server error");
+  }
+});
+
 const editSingleUser = asyncWrapper(async (req, res) => {
   const username = req.params.username;
   const newLinks = req.body.links;
@@ -74,4 +109,6 @@ module.exports = {
   createUsers,
   editSingleUser,
   getSingleLiked,
+  getSingleViewed,
+  createProfileView,
 };

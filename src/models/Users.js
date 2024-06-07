@@ -10,7 +10,9 @@ const UserSchema = new Schema({
   links: { type: Object },
   giveLikes: { type: Array },
   recvLikes: { type: Array },
+  profileViews: { type: Array },
 });
+
 const Users = model("users", UserSchema);
 
 module.exports = Users;
