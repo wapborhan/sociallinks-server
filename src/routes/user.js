@@ -1,15 +1,14 @@
 const express = require("express");
+const router = express.Router();
 const {
   getAllUsers,
   createUsers,
   getSingleUser,
   editSingleUser,
-  getSingleLiked,
-  getSingleViewed,
-  createProfileView,
-  rankUser,
 } = require("../controllers/users");
-const router = express.Router();
+const { getSingleLiked } = require("../controllers/liked");
+const { getSingleViewed, createProfileView } = require("../controllers/viewer");
+const { rankUser } = require("../controllers/ranks");
 
 router.route("/users").get(getAllUsers).post(createUsers);
 router.route("/user/:username").get(getSingleUser).put(editSingleUser);
