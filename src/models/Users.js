@@ -9,8 +9,7 @@ const UserSchema = new Schema(
     address: { type: String },
     bio: { type: String },
     links: { type: Object },
-    giveLikes: { type: Array },
-    recvLikes: { type: Array },
+    profileLikes: { type: Array },
     profileViews: { type: Array },
   },
   { versionKey: false }

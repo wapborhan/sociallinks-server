@@ -6,13 +6,13 @@ const {
   getSingleUser,
   editSingleUser,
 } = require("../controllers/users");
-const { getSingleLiked } = require("../controllers/liked");
+const { getSingleLiked, createProfileLike } = require("../controllers/liked");
 const { getSingleViewed, createProfileView } = require("../controllers/viewer");
 const { rankUser } = require("../controllers/ranks");
 
 router.route("/users").get(getAllUsers).post(createUsers);
 router.route("/user/:username").get(getSingleUser).put(editSingleUser);
-router.route("/liked/:username").get(getSingleLiked);
+router.route("/liked/:username").get(getSingleLiked).post(createProfileLike);
 router.route("/views/:username").get(getSingleViewed).post(createProfileView);
 router.route("/ranks").get(rankUser);
 
