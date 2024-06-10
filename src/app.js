@@ -13,7 +13,7 @@ app.use(express.static(path.join(__dirname, "public")));
 applyMiddlewares(app);
 
 //  All Routes
-app.use("/api", users);
+app.use(users);
 
 // Homepage
 app.get("/", (req, res) => {
