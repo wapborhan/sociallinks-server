@@ -4,7 +4,7 @@ const path = require("path");
 require("dotenv").config();
 const notFound = require("./middlewares/not-found");
 const applyMiddlewares = require("./middlewares");
-const users = require("./routes/user");
+const router = require("./routes/user");
 const globalErrorHandler = require("./utils/globalErrorHandler");
 
 app.use(express.static(path.join(__dirname, "public")));
@@ -13,7 +13,7 @@ app.use(express.static(path.join(__dirname, "public")));
 applyMiddlewares(app);
 
 //  All Routes
-app.use(users);
+app.use(router);
 
 // Homepage
 app.get("/", (req, res) => {
